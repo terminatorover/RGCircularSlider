@@ -20,12 +20,17 @@
     
     //starting angle
     self.angle = 99;
+    self.pressed = NO;
     
-    //add Gesutre Recognizer
+    //add Panning Gesutre Recognizer
     UIPanGestureRecognizer *tracker = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panning:)];
     
    
     [self addGestureRecognizer:tracker];
+    
+    //Add Tap Gesture Recognizer
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapPlayButton:)];
+    [self addGestureRecognizer:tap];
     return self;
 }
 
@@ -43,23 +48,25 @@
 
 
     handlePosition = CGPointMake(10, 23);
-    [self drawCanvas1WithAngle:self.angle];
+    [self drawCanvas1WithAngle:self.angle boolean:self.pressed];
 
 }
-- (void)drawCanvas1WithAngle: (CGFloat)angle
+
+- (void)drawCanvas1WithAngle: (CGFloat)angle boolean: (BOOL)boolean
 {
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 0.25 green: 0.756 blue: 0.381 alpha: 1];
     UIColor* color4 = [UIColor colorWithRed: 0.135 green: 0.118 blue: 0.118 alpha: 0.614];
     UIColor* color5 = [UIColor colorWithRed: 0.263 green: 0.545 blue: 0.302 alpha: 1];
     UIColor* color6 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    UIColor* color8 = [UIColor colorWithRed: 0.056 green: 0.052 blue: 0.052 alpha: 0.433];
     
     //// Group 2
     {
         //// Group
         {
             //// BackgroundCircle Drawing
-            UIBezierPath* backgroundCirclePath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(3, 11, 300, 299)];
+            UIBezierPath* backgroundCirclePath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(3, 12, 300, 299)];
             [color4 setFill];
             [backgroundCirclePath fill];
             
@@ -67,7 +74,7 @@
             //// frontCircle Drawing
             CGRect frontCircleRect = CGRectMake(3, 12, 300, 299);
             UIBezierPath* frontCirclePath = UIBezierPath.bezierPath;
-            [frontCirclePath addArcWithCenter: CGPointMake(0, 0) radius: CGRectGetWidth(frontCircleRect) / 2 startAngle: -(angle + 29) * M_PI/180 endAngle: 0 * M_PI/180 clockwise: YES];
+            [frontCirclePath addArcWithCenter: CGPointMake(0, 0) radius: CGRectGetWidth(frontCircleRect) / 2 startAngle: -(angle - 10) * M_PI/180 endAngle: 0 * M_PI/180 clockwise: YES];
             [frontCirclePath addLineToPoint: CGPointMake(0, 0)];
             [frontCirclePath closePath];
             
@@ -80,23 +87,35 @@
         }
         
         
-        //// Oval Drawing
-        UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(63, 71, 180, 180)];
-        [color5 setFill];
-        [ovalPath fill];
-        
-        
-        //// Bezier Drawing
-        UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-        [bezierPath moveToPoint: CGPointMake(136.5, 125.5)];
-        [bezierPath addLineToPoint: CGPointMake(136.5, 195.5)];
-        [bezierPath addLineToPoint: CGPointMake(199.5, 163.5)];
-        [bezierPath addLineToPoint: CGPointMake(136.5, 125.5)];
-        [UIColor.whiteColor setFill];
-        [bezierPath fill];
-        [color6 setStroke];
-        bezierPath.lineWidth = 1;
-        [bezierPath stroke];
+        //// Group 3
+        {
+            //// Oval Drawing
+            UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(63, 71, 180, 180)];
+            [color5 setFill];
+            [ovalPath fill];
+            
+            
+            //// Bezier Drawing
+            UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+            [bezierPath moveToPoint: CGPointMake(136.5, 125.5)];
+            [bezierPath addLineToPoint: CGPointMake(136.5, 195.5)];
+            [bezierPath addLineToPoint: CGPointMake(199.5, 163.5)];
+            [bezierPath addLineToPoint: CGPointMake(136.5, 125.5)];
+            [UIColor.whiteColor setFill];
+            [bezierPath fill];
+            [color6 setStroke];
+            bezierPath.lineWidth = 1;
+            [bezierPath stroke];
+        }
+    }
+    
+    
+    if (boolean)
+    {
+        //// Oval 2 Drawing
+        UIBezierPath* oval2Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(63, 71, 180, 180)];
+        [color8 setFill];
+        [oval2Path fill];
     }
 }
 
@@ -115,6 +134,7 @@
     return result;
 }
 
+#pragma mark - Gesture Recognizer Delegate
 - (void)panning:(UIPanGestureRecognizer *)sender
 {
     
@@ -125,6 +145,25 @@
     NSLog(@"%d",self.angle);
     //Redraw
     [self setNeedsDisplay];
+    
+}
+
+- (void)tapPlayButton:(UITapGestureRecognizer *)touch
+{
+    CGRect box = CGRectMake(63, 71, 180, 180);
+    //63+180
+    //71+180
+    CGPoint touchLocation = [touch locationInView:self];
+    NSInteger x = touchLocation.x;
+    NSInteger y = touchLocation.y;
+    BOOL withInXRange = (x > 63 && x < 243);
+    BOOL withInYRange = (y > 71  && x < 251);
+    if( withInXRange && withInYRange)
+    {
+        self.pressed = !self.pressed;
+        [self setNeedsDisplay];
+    }
+    
     
 }
 

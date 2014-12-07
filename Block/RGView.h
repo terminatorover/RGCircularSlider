@@ -10,4 +10,5 @@
 
 @interface RGView : UIView
 @property NSInteger angle;
+@property BOOL pressed;
 @end
