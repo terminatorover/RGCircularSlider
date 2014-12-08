@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface RGCircularSlider : UIView
-@property BOOL pressed;
-@property NSInteger angle;
+@property id delegate;
+@end
+
+@protocol RGCircularSliderDelegate <NSObject>
+
+- (void)currentDegree:(NSInteger)degree;
+- (void)onPlay:(BOOL)state;
+
 @end

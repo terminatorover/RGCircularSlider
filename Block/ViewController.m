@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
-typedef NSString * (^SimpleBlock) (NSString *);
-@interface ViewController ()
+#import "RGCircularSlider.h"
+
+@interface ViewController () <RGCircularSliderDelegate>
+@property (weak, nonatomic) IBOutlet RGCircularSlider *slider;
+
 
 @end
 
@@ -19,12 +22,23 @@ typedef NSString * (^SimpleBlock) (NSString *);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-       
+    self.slider.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Slider Delegate 
+- (void)currentDegree:(NSInteger)degree
+{
+    NSLog(@"Degree:%d",degree);
+}
+
+- (void)onPlay:(BOOL)state
+{
+    
 }
 
 @end

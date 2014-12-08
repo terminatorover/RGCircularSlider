@@ -31,6 +31,7 @@
                     </view>
                     <connections>
                         <outlet property="ad" destination="08T-tg-qoL" id="lkD-EX-G7Y"/>
+                        <outlet property="slider" destination="oqP-UV-M8N" id="lP4-QI-24G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

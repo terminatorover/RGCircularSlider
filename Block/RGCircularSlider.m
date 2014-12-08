@@ -11,6 +11,12 @@
 
 #import "RGCircularSlider.h"
 
+@interface RGCircularSlider()
+@property BOOL pressed;
+@property NSInteger angle;
+
+@end
+
 @implementation RGCircularSlider
 
 -(id)initWithCoder:(NSCoder *)aDecoder
@@ -57,7 +63,9 @@
     CGPoint expression = CGPointMake(sizeOfOuterCircle / 2.40, sizeOfOuterCircle / 2.90);
     CGFloat rightPauseBar = leftPauseBar - 10;
     
-    //// Oval 3 Drawing
+    //// Oval 3 @property BOOL pressed;
+
+
     UIBezierPath* oval3Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(0, 0, sizeOfOuterCircle, sizeOfOuterCircle)];
     [color8 setFill];
     [oval3Path fill];
@@ -66,7 +74,7 @@
     //// Oval Drawing
     CGRect ovalRect = CGRectMake(0, 0, sizeOfOuterCircle, sizeOfOuterCircle);
     UIBezierPath* ovalPath = UIBezierPath.bezierPath;
-    [ovalPath addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect)) radius: CGRectGetWidth(ovalRect) / 2 startAngle: 0 * M_PI/180 endAngle: -(angle + 112) * M_PI/180 clockwise: YES];
+    [ovalPath addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect)) radius: CGRectGetWidth(ovalRect) / 2 startAngle: -angle * M_PI/180 endAngle: 0 * M_PI/180 clockwise: YES];
     [ovalPath addLineToPoint: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect))];
     [ovalPath closePath];
     
@@ -150,18 +158,34 @@
 - (void)panning:(UIPanGestureRecognizer *)panning
 {
 
-    //    CGPoint translation = [pan translationInView:self];
+
     CGPoint currentTouch = [panning locationInView:self];
     self.angle =  - RADIANS_TO_DEGREES(pToA(currentTouch, self));
-    NSLog(@"%d",self.angle);
+    [self percentageFromCircularAngle:self.angle];
     
-    if(self.angle > 0 )
+    //------
+    if(_delegate && [_delegate respondsToSelector:@selector(currentDegree:)])
     {
-        self.angle = -360 + self.angle;
+        [_delegate currentDegree:[self percentageFromCircularAngle:self.angle]];
     }
     
     //Redraw
     [self setNeedsDisplay];
+}
+
+- (CGFloat)percentageFromCircularAngle:(NSInteger )angle
+{
+    if(angle > 0)
+    {
+        return  angle / 360.0;
+    }
+    else if (angle < 0 )
+    {
+        NSInteger convertedAngle = 360 + angle;
+        return  convertedAngle;
+    }
+
+    return 0.0;
 }
 
 - (void)tap:(UITapGestureRecognizer *)touch
@@ -180,6 +204,11 @@
     if( withInXRange && withInYRange)
     {
         self.pressed = !self.pressed;
+        if(_delegate && [_delegate respondsToSelector:@selector(currentDegree:)])
+        {
+            [_delegate onPlay:self.pressed];
+            ;
+        }
         [self setNeedsDisplay];
     }
     

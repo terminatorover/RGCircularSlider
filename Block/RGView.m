@@ -169,7 +169,7 @@
 //    CGPoint translation = [pan translationInView:self];
     CGPoint currentTouch = [pan locationInView:self];
     self.angle =  - RADIANS_TO_DEGREES(pToA(currentTouch, self));
-    NSLog(@"%d",self.angle);
+
     //Redraw
     [self setNeedsDisplay];
     
@@ -177,9 +177,7 @@
 
 - (void)tapPlayButton:(UITapGestureRecognizer *)touch
 {
-    CGRect box = CGRectMake(63, 71, 180, 180);
-    //63+180
-    //71+180
+ 
     CGPoint touchLocation = [touch locationInView:self];
     NSInteger x = touchLocation.x;
     NSInteger y = touchLocation.y;
