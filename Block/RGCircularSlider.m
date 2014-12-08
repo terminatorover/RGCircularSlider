@@ -52,20 +52,27 @@
     
     //// Color Declarations
     UIColor* color7 = [UIColor colorWithRed: 0.137 green: 0.525 blue: 0.242 alpha: 1];
-    UIColor* color8 = [UIColor colorWithRed: 0.219 green: 0.286 blue: 0.25 alpha: 1];
+    UIColor* color8 = [UIColor colorWithRed: 0.181 green: 0.263 blue: 0.219 alpha: 0.755];
     UIColor* color10 = [UIColor colorWithRed: 0.206 green: 0.662 blue: 0.287 alpha: 1];
     UIColor* color11 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    UIColor* color13 = [UIColor colorWithRed: 0.173 green: 0.489 blue: 0.652 alpha: 1];
+    
+    //// Shadow Declarations
+    UIColor* hanldeShadow = UIColor.blackColor;
+    CGSize hanldeShadowOffset = CGSizeMake(3.1, 3.1);
+    CGFloat hanldeShadowBlurRadius = 5;
     
     //// Variable Declarations
     CGFloat sizeOfInnerCircle = sizeOfOuterCircle / 2.0;
+    CGPoint rotationOrigin = CGPointMake(sizeOfInnerCircle, sizeOfInnerCircle);
+    CGPoint handlerOffset = CGPointMake(sizeOfInnerCircle / 3.50, sizeOfInnerCircle / 3.50);
     CGPoint innerCircleCenter = CGPointMake(sizeOfOuterCircle / 4.0, sizeOfOuterCircle / 4.0);
     CGFloat playPauseButtonScale = sizeOfOuterCircle / 100.0;
     CGPoint expression = CGPointMake(sizeOfOuterCircle / 2.40, sizeOfOuterCircle / 2.90);
+    CGFloat sizeOfHandler = (sizeOfOuterCircle - sizeOfInnerCircle) / 2.0;
     CGFloat rightPauseBar = leftPauseBar - 10;
     
-    //// Oval 3 @property BOOL pressed;
-
-
+    //// Oval 3 Drawing
     UIBezierPath* oval3Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(0, 0, sizeOfOuterCircle, sizeOfOuterCircle)];
     [color8 setFill];
     [oval3Path fill];
@@ -152,6 +159,22 @@
         
         CGContextRestoreGState(context);
     }
+    
+    
+    //// Oval 4 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, rotationOrigin.x, rotationOrigin.y);
+    CGContextRotateCTM(context, -(angle + 45) * M_PI / 180);
+    
+    UIBezierPath* oval4Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(handlerOffset.x, handlerOffset.y, sizeOfHandler, sizeOfHandler)];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, hanldeShadowOffset, hanldeShadowBlurRadius, [hanldeShadow CGColor]);
+    [color13 setFill];
+    [oval4Path fill];
+    CGContextRestoreGState(context);
+    
+    
+    CGContextRestoreGState(context);
 }
 
 
@@ -160,7 +183,11 @@
 
 
     CGPoint currentTouch = [panning locationInView:self];
+    //get the angle  from the touch  location
     self.angle =  - RADIANS_TO_DEGREES(pToA(currentTouch, self));
+    //compute the position where the handle should be drawn from the angle
+    
+    
     [self percentageFromCircularAngle:self.angle];
     
     //------
@@ -172,6 +199,9 @@
     //Redraw
     [self setNeedsDisplay];
 }
+
+
+
 
 - (CGFloat)percentageFromCircularAngle:(NSInteger )angle
 {

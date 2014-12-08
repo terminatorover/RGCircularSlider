@@ -16,9 +16,6 @@
 @end
 
 @implementation ViewController
-{
-    NSMutableString *globalString;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
