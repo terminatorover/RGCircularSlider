@@ -1,4 +1,4 @@
-CircularSlider
+RGCircularSlider
 ==============
 To use this control with interface builder you just need to drop RGCircularSlider in for the class of the  
 view in the storyboard of .xib file. You can also use initWithFrame: . To get the value of degree and the
