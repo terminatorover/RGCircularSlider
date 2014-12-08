@@ -11,4 +11,13 @@
 @interface RGView : UIView
 @property NSInteger angle;
 @property BOOL pressed;
+
+@property id delegate;
+
+@end
+
+@protocol RGSliderDelegate <NSObject>
+
+- (void)percentAngle:(NSInteger)percent;
+
 @end

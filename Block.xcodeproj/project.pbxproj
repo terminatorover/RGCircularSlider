@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1BE79C41A340C910076D223 /* RGView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BE79C31A340C910076D223 /* RGView.m */; };
+		A1BE79C71A3503170076D223 /* RGCircularSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BE79C61A3503170076D223 /* RGCircularSlider.m */; };
 		A1DB28E31A322A9500EDB45F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DB28E21A322A9500EDB45F /* main.m */; };
 		A1DB28E61A322A9500EDB45F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DB28E51A322A9500EDB45F /* AppDelegate.m */; };
 		A1DB28E91A322A9500EDB45F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DB28E81A322A9500EDB45F /* ViewController.m */; };
@@ -30,6 +31,8 @@
 /* Begin PBXFileReference section */
 		A1BE79C21A340C910076D223 /* RGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGView.h; sourceTree = "<group>"; };
 		A1BE79C31A340C910076D223 /* RGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGView.m; sourceTree = "<group>"; };
+		A1BE79C51A3503170076D223 /* RGCircularSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGCircularSlider.h; sourceTree = "<group>"; };
+		A1BE79C61A3503170076D223 /* RGCircularSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGCircularSlider.m; sourceTree = "<group>"; };
 		A1DB28DD1A322A9500EDB45F /* Block.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Block.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DB28E11A322A9500EDB45F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1DB28E21A322A9500EDB45F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -90,6 +93,8 @@
 				A1DB28E81A322A9500EDB45F /* ViewController.m */,
 				A1BE79C21A340C910076D223 /* RGView.h */,
 				A1BE79C31A340C910076D223 /* RGView.m */,
+				A1BE79C51A3503170076D223 /* RGCircularSlider.h */,
+				A1BE79C61A3503170076D223 /* RGCircularSlider.m */,
 				A1DB28EA1A322A9500EDB45F /* Main.storyboard */,
 				A1DB28ED1A322A9500EDB45F /* Images.xcassets */,
 				A1DB28EF1A322A9500EDB45F /* LaunchScreen.xib */,
@@ -225,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1DB28E91A322A9500EDB45F /* ViewController.m in Sources */,
+				A1BE79C71A3503170076D223 /* RGCircularSlider.m in Sources */,
 				A1DB28E61A322A9500EDB45F /* AppDelegate.m in Sources */,
 				A1DB28E31A322A9500EDB45F /* main.m in Sources */,
 				A1BE79C41A340C910076D223 /* RGView.m in Sources */,

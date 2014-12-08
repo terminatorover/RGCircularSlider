@@ -48,18 +48,21 @@
 
 
     handlePosition = CGPointMake(10, 23);
-    [self drawCanvas1WithAngle:self.angle boolean:self.pressed];
+    [self drawCanvas1WithFrame:rect angle:self.angle pauseButton:self.pressed playButton:!self.pressed];
 
 }
-
-- (void)drawCanvas1WithAngle: (CGFloat)angle boolean: (BOOL)boolean
+- (void)drawCanvas1WithFrame: (CGRect)frame angle: (CGFloat)angle pauseButton: (BOOL)pauseButton playButton: (BOOL)playButton
 {
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 0.25 green: 0.756 blue: 0.381 alpha: 1];
     UIColor* color4 = [UIColor colorWithRed: 0.135 green: 0.118 blue: 0.118 alpha: 0.614];
     UIColor* color5 = [UIColor colorWithRed: 0.263 green: 0.545 blue: 0.302 alpha: 1];
     UIColor* color6 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* color8 = [UIColor colorWithRed: 0.056 green: 0.052 blue: 0.052 alpha: 0.433];
+    
+    
+    //// Subframes
+    CGRect group4 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 53) * 0.46154 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 60) * 0.44615 + 0.5), 53, 60);
+    
     
     //// Group 2
     {
@@ -95,27 +98,51 @@
             [ovalPath fill];
             
             
-            //// Bezier Drawing
-            UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-            [bezierPath moveToPoint: CGPointMake(136.5, 125.5)];
-            [bezierPath addLineToPoint: CGPointMake(136.5, 195.5)];
-            [bezierPath addLineToPoint: CGPointMake(199.5, 163.5)];
-            [bezierPath addLineToPoint: CGPointMake(136.5, 125.5)];
-            [UIColor.whiteColor setFill];
-            [bezierPath fill];
-            [color6 setStroke];
-            bezierPath.lineWidth = 1;
-            [bezierPath stroke];
+            if (playButton)
+            {
+                //// Bezier Drawing
+                UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+                [bezierPath moveToPoint: CGPointMake(121.5, 125.5)];
+                [bezierPath addLineToPoint: CGPointMake(121.5, 195.5)];
+                [bezierPath addLineToPoint: CGPointMake(184.5, 163.5)];
+                [bezierPath addLineToPoint: CGPointMake(121.5, 125.5)];
+                [UIColor.whiteColor setFill];
+                [bezierPath fill];
+                [color6 setStroke];
+                bezierPath.lineWidth = 1;
+                [bezierPath stroke];
+            }
         }
-    }
-    
-    
-    if (boolean)
-    {
-        //// Oval 2 Drawing
-        UIBezierPath* oval2Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(63, 71, 180, 180)];
-        [color8 setFill];
-        [oval2Path fill];
+        
+        
+        if (pauseButton)
+        {
+            //// Group 4
+            {
+                //// Rectangle Drawing
+                UIBezierPath* rectanglePath = UIBezierPath.bezierPath;
+                [rectanglePath moveToPoint: CGPointMake(CGRectGetMinX(group4) + 3, CGRectGetMinY(group4) + 71.31)];
+                [rectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(group4) + 22, CGRectGetMinY(group4) + 71.31)];
+                [rectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(group4) + 22, CGRectGetMinY(group4) + 12)];
+                [rectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(group4) + 3, CGRectGetMinY(group4) + 12)];
+                [rectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(group4) + 3, CGRectGetMinY(group4) + 71.31)];
+                [rectanglePath closePath];
+                [UIColor.whiteColor setFill];
+                [rectanglePath fill];
+                
+                
+                //// Rectangle 2 Drawing
+                UIBezierPath* rectangle2Path = UIBezierPath.bezierPath;
+                [rectangle2Path moveToPoint: CGPointMake(CGRectGetMinX(group4) + 37, CGRectGetMinY(group4) + 72)];
+                [rectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(group4) + 56, CGRectGetMinY(group4) + 72)];
+                [rectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(group4) + 56, CGRectGetMinY(group4) + 12.69)];
+                [rectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(group4) + 37, CGRectGetMinY(group4) + 12.69)];
+                [rectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(group4) + 37, CGRectGetMinY(group4) + 72)];
+                [rectangle2Path closePath];
+                [UIColor.whiteColor setFill];
+                [rectangle2Path fill];
+            }
+        }
     }
 }
 
@@ -171,7 +198,7 @@ static CGFloat pToA (CGPoint loc, UIView* self) {
 
     CGPoint c = CGPointMake(CGRectGetMidX(self.bounds),
                             CGRectGetMidY(self.bounds));
-
+    
     return atan2(loc.y - c.y, loc.x - c.x);
 }
 
