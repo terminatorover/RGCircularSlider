@@ -8,6 +8,8 @@ state of the button(play or pause) you need to implement the RGCircularSliderDel
 - (void)onPlay:(BOOL)state;
 
 0 ≤ degree ≤ 360
-and state is YES when you see the "play button" and NO when you see the "pause button"
+and state is YES when you see the "play button" and NO when you see the "pause button".
 
+Note: to make this control look good the width and heigh of the view should be equal since 
+we want a circle.
 
