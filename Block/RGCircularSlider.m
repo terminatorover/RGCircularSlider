@@ -13,10 +13,21 @@
 
 @implementation RGCircularSlider
 
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    //inital angle
+    self.angle = 99;
+    self.pressed = YES;
+    
+    return self;
+}
+
 -(void)drawRect:(CGRect)rect
 {
-    [self drawCanvas2WithFrame:rect sizeOfOuterCircle:self.frame.size.width];
-
+//    [self drawCanvas2WithFrame:rect sizeOfOuterCircle:self.frame.size.width];
+    
     //adding panning gesture recognizer to figure out the translation
     UIPanGestureRecognizer *panning = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panning:)];
     [self addGestureRecognizer:panning];
@@ -24,14 +35,11 @@
     //adding tap gesture recognizer to figure
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:tap];
-    
-    //inital angle
-    self.angle = 99;
-    
+    [self drawCanvas2WithFrame:rect sizeOfOuterCircle:self.frame.size.width pauseButton:!self.pressed playButton:self.pressed leftPauseBar:21];
+   
 }
 
-
-- (void)drawCanvas2WithFrame: (CGRect)frame sizeOfOuterCircle: (CGFloat)sizeOfOuterCircle
+- (void)drawCanvas2WithFrame: (CGRect)frame sizeOfOuterCircle: (CGFloat)sizeOfOuterCircle pauseButton: (BOOL)pauseButton playButton: (BOOL)playButton leftPauseBar: (CGFloat)leftPauseBar
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -40,12 +48,14 @@
     UIColor* color7 = [UIColor colorWithRed: 0.137 green: 0.525 blue: 0.242 alpha: 1];
     UIColor* color8 = [UIColor colorWithRed: 0.219 green: 0.286 blue: 0.25 alpha: 1];
     UIColor* color10 = [UIColor colorWithRed: 0.206 green: 0.662 blue: 0.287 alpha: 1];
+    UIColor* color11 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
     //// Variable Declarations
     CGFloat sizeOfInnerCircle = sizeOfOuterCircle / 2.0;
     CGPoint innerCircleCenter = CGPointMake(sizeOfOuterCircle / 4.0, sizeOfOuterCircle / 4.0);
-    CGFloat playButtonScale = sizeOfOuterCircle / 100.0;
+    CGFloat playPauseButtonScale = sizeOfOuterCircle / 100.0;
     CGPoint expression = CGPointMake(sizeOfOuterCircle / 2.40, sizeOfOuterCircle / 2.90);
+    CGFloat rightPauseBar = leftPauseBar - 10;
     
     //// Oval 3 Drawing
     UIBezierPath* oval3Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(0, 0, sizeOfOuterCircle, sizeOfOuterCircle)];
@@ -56,7 +66,7 @@
     //// Oval Drawing
     CGRect ovalRect = CGRectMake(0, 0, sizeOfOuterCircle, sizeOfOuterCircle);
     UIBezierPath* ovalPath = UIBezierPath.bezierPath;
-    [ovalPath addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect)) radius: CGRectGetWidth(ovalRect) / 2 startAngle: 28 * M_PI/180 endAngle: 0 * M_PI/180 clockwise: YES];
+    [ovalPath addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect)) radius: CGRectGetWidth(ovalRect) / 2 startAngle: 0 * M_PI/180 endAngle: 189 * M_PI/180 clockwise: YES];
     [ovalPath addLineToPoint: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect))];
     [ovalPath closePath];
     
@@ -75,20 +85,65 @@
     CGContextRestoreGState(context);
     
     
-    //// Bezier Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, expression.x, expression.y);
-    CGContextScaleCTM(context, playButtonScale, playButtonScale);
-    
-    UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-    [bezierPath moveToPoint: CGPointMake(0, 0)];
-    [bezierPath addLineToPoint: CGPointMake(0, 26)];
-    [bezierPath addLineToPoint: CGPointMake(22.29, 15.53)];
-    [bezierPath addLineToPoint: CGPointMake(0, 0)];
-    [UIColor.whiteColor setFill];
-    [bezierPath fill];
-    
-    CGContextRestoreGState(context);
+    //// Group
+    {
+        CGContextSaveGState(context);
+        CGContextTranslateCTM(context, (expression.x + 0.0833333333333), expression.y);
+        
+        
+        
+        if (playButton)
+        {
+            //// Bezier Drawing
+            CGContextSaveGState(context);
+            CGContextTranslateCTM(context, 3, -0);
+            CGContextScaleCTM(context, playPauseButtonScale, playPauseButtonScale);
+            
+            UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+            [bezierPath moveToPoint: CGPointMake(0, 0)];
+            [bezierPath addLineToPoint: CGPointMake(0, 26)];
+            [bezierPath addLineToPoint: CGPointMake(22.29, 15.53)];
+            [bezierPath addLineToPoint: CGPointMake(0, 0)];
+            [color11 setFill];
+            [bezierPath fill];
+            
+            CGContextRestoreGState(context);
+        }
+        
+        
+        if (pauseButton)
+        {
+            //// Group 2
+            {
+                //// Rectangle Drawing
+                CGContextSaveGState(context);
+                CGContextTranslateCTM(context, (leftPauseBar - 21), 0.83);
+                CGContextScaleCTM(context, playPauseButtonScale, playPauseButtonScale);
+                
+                UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 8, 24)];
+                [UIColor.whiteColor setFill];
+                [rectanglePath fill];
+                
+                CGContextRestoreGState(context);
+                
+                
+                //// Rectangle 2 Drawing
+                CGContextSaveGState(context);
+                CGContextTranslateCTM(context, (rightPauseBar - 11), 0.83);
+                CGContextScaleCTM(context, playPauseButtonScale, playPauseButtonScale);
+                
+                UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(10.38, 0, 8, 24)];
+                [UIColor.whiteColor setFill];
+                [rectangle2Path fill];
+                
+                CGContextRestoreGState(context);
+            }
+        }
+        
+        
+        
+        CGContextRestoreGState(context);
+    }
 }
 
 
