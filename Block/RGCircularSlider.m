@@ -43,6 +43,8 @@
     [self addGestureRecognizer:tap];
 
     [self drawCanvas2WithFrame:rect sizeOfOuterCircle:self.frame.size.width angle:self.angle pauseButton:!self.pressed playButton:self.pressed leftPauseBar:21];
+//    [self drawCanvas1WithFrame:rect angle:self.angle pauseButton:<#(BOOL)#> playButton:<#(BOOL)#>]
+    
 }
 
 - (void)drawCanvas2WithFrame: (CGRect)frame sizeOfOuterCircle: (CGFloat)sizeOfOuterCircle angle: (CGFloat)angle pauseButton: (BOOL)pauseButton playButton: (BOOL)playButton leftPauseBar: (CGFloat)leftPauseBar
@@ -61,6 +63,9 @@
     UIColor* hanldeShadow = UIColor.blackColor;
     CGSize hanldeShadowOffset = CGSizeMake(3.1, 3.1);
     CGFloat hanldeShadowBlurRadius = 5;
+    UIColor* shadow = UIColor.blackColor;
+    CGSize shadowOffset = CGSizeMake(0.1, -0.1);
+    CGFloat shadowBlurRadius = 14;
     
     //// Variable Declarations
     CGFloat sizeOfInnerCircle = sizeOfOuterCircle / 2.0;
@@ -76,6 +81,28 @@
     UIBezierPath* oval3Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(0, 0, sizeOfOuterCircle, sizeOfOuterCircle)];
     [color8 setFill];
     [oval3Path fill];
+    
+    ////// Oval 3 Inner Shadow
+    CGContextSaveGState(context);
+    UIRectClip(oval3Path.bounds);
+    CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
+    
+    CGContextSetAlpha(context, CGColorGetAlpha([shadow CGColor]));
+    CGContextBeginTransparencyLayer(context, NULL);
+    {
+        UIColor* opaqueShadow = [shadow colorWithAlphaComponent: 1];
+        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [opaqueShadow CGColor]);
+        CGContextSetBlendMode(context, kCGBlendModeSourceOut);
+        CGContextBeginTransparencyLayer(context, NULL);
+        
+        [opaqueShadow setFill];
+        [oval3Path fill];
+        
+        CGContextEndTransparencyLayer(context);
+    }
+    CGContextEndTransparencyLayer(context);
+    CGContextRestoreGState(context);
+    
     
     
     //// Oval Drawing

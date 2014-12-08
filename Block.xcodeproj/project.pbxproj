@@ -15,18 +15,7 @@
 		A1DB28EC1A322A9500EDB45F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DB28EA1A322A9500EDB45F /* Main.storyboard */; };
 		A1DB28EE1A322A9500EDB45F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1DB28ED1A322A9500EDB45F /* Images.xcassets */; };
 		A1DB28F11A322A9500EDB45F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1DB28EF1A322A9500EDB45F /* LaunchScreen.xib */; };
-		A1DB28FD1A322A9500EDB45F /* BlockTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DB28FC1A322A9500EDB45F /* BlockTests.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		A1DB28F71A322A9500EDB45F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1DB28D51A322A9500EDB45F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A1DB28DC1A322A9500EDB45F;
-			remoteInfo = Block;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A1BE79C21A340C910076D223 /* RGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGView.h; sourceTree = "<group>"; };
@@ -43,20 +32,12 @@
 		A1DB28EB1A322A9500EDB45F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A1DB28ED1A322A9500EDB45F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A1DB28F01A322A9500EDB45F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		A1DB28F61A322A9500EDB45F /* BlockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DB28FB1A322A9500EDB45F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1DB28FC1A322A9500EDB45F /* BlockTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A1DB28DA1A322A9500EDB45F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A1DB28F31A322A9500EDB45F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -79,7 +60,6 @@
 			isa = PBXGroup;
 			children = (
 				A1DB28DD1A322A9500EDB45F /* Block.app */,
-				A1DB28F61A322A9500EDB45F /* BlockTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,24 +129,6 @@
 			productReference = A1DB28DD1A322A9500EDB45F /* Block.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A1DB28F51A322A9500EDB45F /* BlockTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A1DB29031A322A9500EDB45F /* Build configuration list for PBXNativeTarget "BlockTests" */;
-			buildPhases = (
-				A1DB28F21A322A9500EDB45F /* Sources */,
-				A1DB28F31A322A9500EDB45F /* Frameworks */,
-				A1DB28F41A322A9500EDB45F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A1DB28F81A322A9500EDB45F /* PBXTargetDependency */,
-			);
-			name = BlockTests;
-			productName = BlockTests;
-			productReference = A1DB28F61A322A9500EDB45F /* BlockTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -178,10 +140,6 @@
 				TargetAttributes = {
 					A1DB28DC1A322A9500EDB45F = {
 						CreatedOnToolsVersion = 6.1;
-					};
-					A1DB28F51A322A9500EDB45F = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = A1DB28DC1A322A9500EDB45F;
 					};
 				};
 			};
@@ -199,7 +157,6 @@
 			projectRoot = "";
 			targets = (
 				A1DB28DC1A322A9500EDB45F /* Block */,
-				A1DB28F51A322A9500EDB45F /* BlockTests */,
 			);
 		};
 /* End PBXProject section */
@@ -212,13 +169,6 @@
 				A1DB28EC1A322A9500EDB45F /* Main.storyboard in Resources */,
 				A1DB28F11A322A9500EDB45F /* LaunchScreen.xib in Resources */,
 				A1DB28EE1A322A9500EDB45F /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A1DB28F41A322A9500EDB45F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,23 +187,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A1DB28F21A322A9500EDB45F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A1DB28FD1A322A9500EDB45F /* BlockTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A1DB28F81A322A9500EDB45F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A1DB28DC1A322A9500EDB45F /* Block */;
-			targetProxy = A1DB28F71A322A9500EDB45F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A1DB28EA1A322A9500EDB45F /* Main.storyboard */ = {
@@ -292,6 +226,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: ROBERA GELETA (PJXU7W3M9Y)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -309,9 +244,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "f9fbd3dd-6895-4e7e-b8d5-cb79927e263a";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -345,8 +281,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "f9fbd3dd-6895-4e7e-b8d5-cb79927e263a";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -373,40 +310,6 @@
 			};
 			name = Release;
 		};
-		A1DB29041A322A9500EDB45F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BlockTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Block.app/Block";
-			};
-			name = Debug;
-		};
-		A1DB29051A322A9500EDB45F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BlockTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Block.app/Block";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -424,15 +327,6 @@
 			buildConfigurations = (
 				A1DB29011A322A9500EDB45F /* Debug */,
 				A1DB29021A322A9500EDB45F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A1DB29031A322A9500EDB45F /* Build configuration list for PBXNativeTarget "BlockTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A1DB29041A322A9500EDB45F /* Debug */,
-				A1DB29051A322A9500EDB45F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
