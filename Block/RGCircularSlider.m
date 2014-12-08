@@ -35,11 +35,11 @@
     //adding tap gesture recognizer to figure
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     [self addGestureRecognizer:tap];
-    [self drawCanvas2WithFrame:rect sizeOfOuterCircle:self.frame.size.width pauseButton:!self.pressed playButton:self.pressed leftPauseBar:21];
-   
+
+    [self drawCanvas2WithFrame:rect sizeOfOuterCircle:self.frame.size.width angle:self.angle pauseButton:!self.pressed playButton:self.pressed leftPauseBar:21];
 }
 
-- (void)drawCanvas2WithFrame: (CGRect)frame sizeOfOuterCircle: (CGFloat)sizeOfOuterCircle pauseButton: (BOOL)pauseButton playButton: (BOOL)playButton leftPauseBar: (CGFloat)leftPauseBar
+- (void)drawCanvas2WithFrame: (CGRect)frame sizeOfOuterCircle: (CGFloat)sizeOfOuterCircle angle: (CGFloat)angle pauseButton: (BOOL)pauseButton playButton: (BOOL)playButton leftPauseBar: (CGFloat)leftPauseBar
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -66,7 +66,7 @@
     //// Oval Drawing
     CGRect ovalRect = CGRectMake(0, 0, sizeOfOuterCircle, sizeOfOuterCircle);
     UIBezierPath* ovalPath = UIBezierPath.bezierPath;
-    [ovalPath addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect)) radius: CGRectGetWidth(ovalRect) / 2 startAngle: 0 * M_PI/180 endAngle: 189 * M_PI/180 clockwise: YES];
+    [ovalPath addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect)) radius: CGRectGetWidth(ovalRect) / 2 startAngle: 0 * M_PI/180 endAngle: -(angle + 112) * M_PI/180 clockwise: YES];
     [ovalPath addLineToPoint: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect))];
     [ovalPath closePath];
     
@@ -154,6 +154,12 @@
     CGPoint currentTouch = [panning locationInView:self];
     self.angle =  - RADIANS_TO_DEGREES(pToA(currentTouch, self));
     NSLog(@"%d",self.angle);
+    
+    if(self.angle > 0 )
+    {
+        self.angle = -360 + self.angle;
+    }
+    
     //Redraw
     [self setNeedsDisplay];
 }
@@ -161,14 +167,16 @@
 - (void)tap:(UITapGestureRecognizer *)touch
 {
     
-    CGRect box = CGRectMake(63, 71, 180, 180);
-    //63+180
-    //71+180
+    //compute the box for the inner circle
+    NSInteger bigBoxSize = self.bounds.size.width;
+    CGFloat quarterSize = self.bounds.size.width /4;
+
+
     CGPoint touchLocation = [touch locationInView:self];
     NSInteger x = touchLocation.x;
     NSInteger y = touchLocation.y;
-    BOOL withInXRange = (x > 63 && x < 243);
-    BOOL withInYRange = (y > 71  && x < 251);
+    BOOL withInXRange = (x > quarterSize && x < (bigBoxSize - quarterSize));
+    BOOL withInYRange = (y > quarterSize && y < (bigBoxSize - quarterSize));
     if( withInXRange && withInYRange)
     {
         self.pressed = !self.pressed;
