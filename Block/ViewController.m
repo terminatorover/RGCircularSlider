@@ -11,6 +11,7 @@
 
 @interface ViewController () <RGCircularSliderDelegate>
 @property (weak, nonatomic) IBOutlet RGCircularSlider *slider;
+@property (weak, nonatomic) IBOutlet UILabel *degree;
 
 
 @end
@@ -30,7 +31,8 @@
 #pragma mark - Slider Delegate 
 - (void)currentDegree:(NSInteger)degree
 {
-    NSLog(@"Degree:%d",degree);
+    self.degree.text = [NSString stringWithFormat:@"%d",degree];
+    
 }
 
 - (void)onPlay:(BOOL)state

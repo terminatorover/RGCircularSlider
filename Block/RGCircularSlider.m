@@ -207,10 +207,12 @@
 {
     if(angle > 0)
     {
-        return  angle / 360.0;
+        NSLog(@"Percent1:--> %d",angle);
+        return  angle ;
     }
     else if (angle < 0 )
     {
+        NSLog(@"Percent2:--> %d",angle);
         NSInteger convertedAngle = 360 + angle;
         return  convertedAngle;
     }
