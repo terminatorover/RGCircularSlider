@@ -58,6 +58,7 @@
     UIColor* color10 = [UIColor colorWithRed: 0.206 green: 0.662 blue: 0.287 alpha: 1];
     UIColor* color11 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     UIColor* color13 = [UIColor colorWithRed: 0.173 green: 0.489 blue: 0.652 alpha: 1];
+    UIColor* color14 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 1];
     
     //// Shadow Declarations
     UIColor* hanldeShadow = UIColor.blackColor;
@@ -66,6 +67,9 @@
     UIColor* shadow = UIColor.blackColor;
     CGSize shadowOffset = CGSizeMake(0.1, -0.1);
     CGFloat shadowBlurRadius = 14;
+    UIColor* shadow2 = UIColor.blackColor;
+    CGSize shadow2Offset = CGSizeMake(0.1, -0.1);
+    CGFloat shadow2BlurRadius = 11;
     
     //// Variable Declarations
     CGFloat sizeOfInnerCircle = sizeOfOuterCircle / 2.0;
@@ -103,6 +107,9 @@
     CGContextEndTransparencyLayer(context);
     CGContextRestoreGState(context);
     
+    [color14 setStroke];
+    oval3Path.lineWidth = 1;
+    [oval3Path stroke];
     
     
     //// Oval Drawing
@@ -121,8 +128,12 @@
     CGContextTranslateCTM(context, CGRectGetMinX(frame), CGRectGetMinY(frame));
     
     UIBezierPath* oval2Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(innerCircleCenter.x, innerCircleCenter.y, sizeOfInnerCircle, sizeOfInnerCircle)];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, [shadow2 CGColor]);
     [color7 setFill];
     [oval2Path fill];
+    CGContextRestoreGState(context);
+    
     
     CGContextRestoreGState(context);
     
@@ -203,7 +214,6 @@
     
     CGContextRestoreGState(context);
 }
-
 
 - (void)panning:(UIPanGestureRecognizer *)panning
 {
